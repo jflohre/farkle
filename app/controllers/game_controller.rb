@@ -38,33 +38,33 @@ class GameController < ApplicationController
   end
   
   def add_to_set
-    index = params[:die].to_i
-    @dice = @game.preferences[:dice]
+    # index = params[:die].to_i
+    # @dice = @game.preferences[:dice]
     # @scoring_dice = @game.preferences[:scoring_dice]
     # @scoring_dice << @dice[index]
     # @dice.delete_at(index)
     # @game.preferences[:dice] = @dice
     # @game.preferences[:scoring_dice] = @scoring_dice
-    if @game.preferences[:scoring_dice].count < 6
-      @scoring_dice = @game.preferences[:scoring_dice]
-      @scoring_dice << @dice[index]
-      @dice.delete_at(index)
-      @game.preferences[:dice] = @dice
-      @game.preferences[:scoring_dice] = @scoring_dice
-
-    elsif @game.preferences[:scoring_dice1].count < 6
-      @scoring_dice = @game.preferences[:scoring_dice1]
-      @scoring_dice << @dice[index]
-      @dice.delete_at(index)
-      @game.preferences[:dice] = @dice
-      @game.preferences[:scoring_dice1] = @scoring_dice
-    else
-      @scoring_dice = @game.preferences[:scoring_dice2]
-      @scoring_dice << @dice[index]
-      @dice.delete_at(index)
-      @game.preferences[:dice] = @dice
-      @game.preferences[:scoring_dice2] = @scoring_dice
-    end
+    placing_dice_in_scoring_dice
+    # if @game.preferences[:scoring_dice].count < 6
+    #   @scoring_dice = @game.preferences[:scoring_dice]
+    #   @scoring_dice << @dice[index]
+    #   @dice.delete_at(index)
+    #   @game.preferences[:dice] = @dice
+    #   @game.preferences[:scoring_dice] = @scoring_dice
+    # elsif @game.preferences[:scoring_dice1].count < 6
+    #   @scoring_dice = @game.preferences[:scoring_dice1]
+    #   @scoring_dice << @dice[index]
+    #   @dice.delete_at(index)
+    #   @game.preferences[:dice] = @dice
+    #   @game.preferences[:scoring_dice1] = @scoring_dice
+    # else
+    #   @scoring_dice = @game.preferences[:scoring_dice2]
+    #   @scoring_dice << @dice[index]
+    #   @dice.delete_at(index)
+    #   @game.preferences[:dice] = @dice
+    #   @game.preferences[:scoring_dice2] = @scoring_dice
+    # end
     @game.save
     redirect_to edit_game_path
   end
@@ -93,29 +93,9 @@ class GameController < ApplicationController
   end
   def update
     current_player = @game.players.find(@game.preferences[:current_player])
-    # if @game.preferences[:scoring_dice2].present?
-    #   score3 = Score.new.round_score(@game.preferences[:scoring_dice2])
-    #   score2 = Score.new.round_score(@game.preferences[:scoring_dice1])
-    #   score = Score.new.round_score(@game.preferences[:scoring_dice])
-    #   current_player.add_to_score(score3)
-    #   current_player.add_to_score(score2)
-    #   current_player.add_to_score(score)
-    # elsif @game.preferences[:scoring_dice1].present? 
-    #   score2 = Score.new.round_score(@game.preferences[:scoring_dice1])
-    #   score = Score.new.round_score(@game.preferences[:scoring_dice])
-    #   current_player.add_to_score(score2)
-    #   current_player.add_to_score(score)
-    # else @game.preferences[:scoring_dice].present?
-    #   score = Score.new.round_score(@game.preferences[:scoring_dice])
-    #   current_player.add_to_score(score)
-    # end
     score = current_score
     current_player.add_to_score(score)
     reset
-    # @game.preferences[:scoring_dice] = []
-    # @game.preferences[:scoring_dice1] = []
-    # @game.preferences[:scoring_dice2] = []
-    # @game.preferences[:dice] = []
     # @game.players.find(@game.preferences[:current_player]).score += score
     # d = params[:dice]
     # @die = session[:die]
