@@ -1,0 +1,12 @@
+
+
+<%= form_tag('/turn', method: "put" ) do %>
+  <%= button_tag "Player 1's turn" %>
+  <%= hidden_field_tag 'current_player', @player1 %>
+<% end %>
+
+
+<%= form_tag('/turn', method: "put" ) do %>
+  <%= button_tag "Player 2's turn" %>
+  <%= hidden_field_tag 'current_player', @player2 %>
+<% end %>

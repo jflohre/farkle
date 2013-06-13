@@ -1,0 +1,22 @@
+<% if flash[:notice] %>
+    <div id="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<p><%= @game.players.first.name %>'s score: 
+<%= @game.players.first.score %></p>
+
+<%= form_tag(edit_game_path, method: "get" ) do %>
+  <%= button_tag "#{@game.players.first.name}'s turn" %>
+  <%= hidden_field_tag 'current_player', @player1 %>
+<% end %>
+
+<p><%= @game.players.second.name %>'s score: 
+<%= @game.players.second.score %></p>
+<%= form_tag(edit_game_path, method: "get" ) do %>
+  <%= button_tag "#{@game.players.second.name}'s turn" %>
+  <%= hidden_field_tag 'current_player', @player2 %>
+<% end %>
+
+show
+<%= Game.find(params[:id]).preferences %>
+

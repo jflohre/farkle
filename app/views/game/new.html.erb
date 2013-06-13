@@ -1,0 +1,7 @@
+<%= form_tag(game_index_path, method: "post" ) do %>
+  <%= label_tag(:player1_name, "Enter Player 1's name:") %>
+  <%= text_field_tag(:player1_name) %>
+  <%= label_tag(:player2_name, "Enter Player 2's name:") %>
+  <%= text_field_tag(:player2_name) %>
+  <%= button_tag "Create Game" %>
+<% end %>
