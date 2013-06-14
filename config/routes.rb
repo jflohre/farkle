@@ -7,6 +7,7 @@ Farkle::Application.routes.draw do
     member do
       put 'add_to_set'
       put 'roll_remaining_dice'
+      put 'farkle'
     end
   end
 

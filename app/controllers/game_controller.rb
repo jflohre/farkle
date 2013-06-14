@@ -38,33 +38,7 @@ class GameController < ApplicationController
   end
   
   def add_to_set
-    # index = params[:die].to_i
-    # @dice = @game.preferences[:dice]
-    # @scoring_dice = @game.preferences[:scoring_dice]
-    # @scoring_dice << @dice[index]
-    # @dice.delete_at(index)
-    # @game.preferences[:dice] = @dice
-    # @game.preferences[:scoring_dice] = @scoring_dice
     placing_dice_in_scoring_dice
-    # if @game.preferences[:scoring_dice].count < 6
-    #   @scoring_dice = @game.preferences[:scoring_dice]
-    #   @scoring_dice << @dice[index]
-    #   @dice.delete_at(index)
-    #   @game.preferences[:dice] = @dice
-    #   @game.preferences[:scoring_dice] = @scoring_dice
-    # elsif @game.preferences[:scoring_dice1].count < 6
-    #   @scoring_dice = @game.preferences[:scoring_dice1]
-    #   @scoring_dice << @dice[index]
-    #   @dice.delete_at(index)
-    #   @game.preferences[:dice] = @dice
-    #   @game.preferences[:scoring_dice1] = @scoring_dice
-    # else
-    #   @scoring_dice = @game.preferences[:scoring_dice2]
-    #   @scoring_dice << @dice[index]
-    #   @dice.delete_at(index)
-    #   @game.preferences[:dice] = @dice
-    #   @game.preferences[:scoring_dice2] = @scoring_dice
-    # end
     @game.save
     redirect_to edit_game_path
   end
@@ -73,22 +47,18 @@ class GameController < ApplicationController
     if Array(@game.preferences[:dice]) == []
       @dice = 6.times.map {rand(1..6)} #getting a new array of rand
     else 
+      current_possible_score = current_score
       @dice = @game.preferences[:dice].length.times.map {rand(1..6)}
     end
-    # if current_score = score_with_reroll
-    #   @game.preferences[:scoring_dice] = []
-    #   @game.preferences[:scoring_dice1] = []
-    #   @game.preferences[:scoring_dice2] = []
-    #   @game.preferences[:dice] = []
-    #   redirect_to game_path
-    # else
-
     @game.preferences[:dice] = @dice 
     @game.save
     redirect_to edit_game_path
   end
+  def farkle
+    flash[:notice] = 'Oh no you farkled!'
+    redirect_to show_game_path
+  end
 
-  
   def home
   end
   def update
@@ -96,20 +66,6 @@ class GameController < ApplicationController
     score = current_score
     current_player.add_to_score(score)
     reset
-    # @game.players.find(@game.preferences[:current_player]).score += score
-    # d = params[:dice]
-    # @die = session[:die]
-    # number_of_dice = @die.count(d.to_i)
-    # number_of_dice.times do 
-    #   session[:die2] << d.to_i
-    # end
-    # @die = session[:die].delete(d.to_i)
-
-    # if session[:die2].count >= 6
-    #   session[:score] = Score.new.round_score(session[:die2])
-    #   session[:die2] = []
-    #   @current_player.add_to_score(session[:score])
-    # end
     current_player.save!
     @game.save!
     redirect_to @game 

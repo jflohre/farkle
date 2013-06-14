@@ -2,8 +2,7 @@
     <div id="notice"><%= flash[:notice] %></div>
 <% end %>
 
-<p>your current dice:</p>
-
+<p> Click to add current dice to to your scoring dice set </p>
 <%= @die %>
 <% if @dice.count > 0 %>
   <% @dice.each_with_index do |d, i| %>
@@ -13,7 +12,7 @@
     <% end %>
   <% end %>
 <% end %>
-<p> Click to add to your set </p>
+
 
 <%if @dice2 != nil %>
   <% @dice2.each_with_index do |d, i| %>
@@ -28,19 +27,12 @@
   <%= button_tag "Reroll Remaining Dice" %>
   <%= hidden_field_tag 'current_player', @current_player %>
 <% end %>
+<%= form_tag(farkle_game_path(@game), method: "put" ) do %>
+  <%= button_tag "Farkle?" %>
+<% end %>
 
 <%= form_tag(game_path, method: "put" ) do %>
   <%= button_tag "Score your points" %>
   <%= hidden_field_tag 'current_player', @current_player %>
 <% end %>
 
-<%= Game.find(params[:id]).preferences %>
-<%= @current_players %>
-players
-<%= Game.find(params[:id]).players %>
-
-
-<%= @game.preferences[:current_player] %>
-<%=   @game.preferences[:scoring_dice] %>
-<%=   @game.preferences[:scoring_dice1] %>
-<%=   @game.preferences[:scoring_dice2] %>

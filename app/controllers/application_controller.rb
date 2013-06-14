@@ -8,9 +8,11 @@ class ApplicationController < ActionController::Base
     @game.preferences[:scoring_dice2] = []
     @game.preferences[:dice] = []
   end
+
   def current_player
     @game.preferences[:current_player]
   end
+  
   def current_score
     if @game.preferences[:scoring_dice2].present?
       score3 = Score.new.round_score(@game.preferences[:scoring_dice2])
@@ -26,6 +28,7 @@ class ApplicationController < ActionController::Base
       current_score = score
     end
   end
+
   def placing_dice_in_scoring_dice
     index = params[:die].to_i
     @dice = @game.preferences[:dice]
