@@ -7,8 +7,10 @@ Feature: Player
   
     Given I am on the home page
     Then I should see "Welcome to Farkle"
-    When I press the button "New Game"
-    Then I should see "Player 1's score: 0"
+    When I press the link "New Game"
+    Then I should see "Enter Player 1's name:"
+    When I fill in "Jake" into "player1s_name"
+    And I fill in "Tom" into
     And I should see "Player 2's score: 0"
     When I press the button "Player 1's turn"
     Then I should see "Roll"

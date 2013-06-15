@@ -1,0 +1,7 @@
+<% if @game.players.first.score > @game.players.second.score %>
+  <%= @game.players.first.name %> is the winner!
+<% else %>
+  <%= @game.players.second.name %> is the winner!
+<% end %>
+
+<%= link_to "Play again?", :controller => "game", :action => "home" %>

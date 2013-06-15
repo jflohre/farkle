@@ -33,11 +33,9 @@
   <%= hidden_field_tag 'current_player', @current_player %>
 <% end %>
 
-<%= form_tag(farkle_game_path(@game), method: "put" ) do %>
-  <%= button_tag "Farkle?" %>
-<% end %>
 
-<%= form_tag(game_path, method: "put" ) do %>
+<%= form_tag(winner_game_path, method: "put" ) do %>
   <%= button_tag "Score your points" %>
-  <%= hidden_field_tag 'current_player', @current_player %>
 <% end %>
+<%= @game %>
+<%= @game.players.first.score %>

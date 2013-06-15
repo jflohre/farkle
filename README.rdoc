@@ -4,3 +4,5 @@ This was built so people can play the dice game farkle
 
 
 It is still in progress
+got to test for winner
+got to fix cucumber tests

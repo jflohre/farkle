@@ -8,6 +8,8 @@ Farkle::Application.routes.draw do
       put 'add_to_set'
       put 'roll_remaining_dice'
       put 'farkle'
+      get 'final_turn'
+      put 'winner'
     end
   end
 

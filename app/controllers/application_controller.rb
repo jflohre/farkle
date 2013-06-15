@@ -52,4 +52,11 @@ class ApplicationController < ActionController::Base
       @game.preferences[:scoring_dice2] = @scoring_dice
     end
   end
+  def score_amount_meant?(score)
+    if score >= 10000
+      true
+    else
+     false
+    end
+  end
 end
