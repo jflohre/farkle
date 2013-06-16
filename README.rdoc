@@ -2,7 +2,7 @@
 
 This was built so people can play the dice game farkle
 
-To start playing please pull down the game and start a server with it
+To start playing please pull down the game and start a server with it.
 Then go to your localhost, or server location and start playing!
 
 You can play 2 players at a time 

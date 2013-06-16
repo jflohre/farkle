@@ -1,6 +1,14 @@
 <% if flash[:notice] %>
     <div id="notice"><%= flash[:notice] %></div>
 <% end %>
+<p><%= @game.players.first.name %>'s score: 
+<%= @game.players.first.score %></p>
+
+<p><%= @game.players.second.name %>'s score: 
+<%= @game.players.second.score %></p>
+
+
+
 
 <p><%= @game.players.find(@game.preferences[:current_player]).name %>'s current dice to select from:</p>
 <p> Click to add to your set </p>
@@ -37,3 +45,4 @@
 <%= form_tag(winner_game_path, method: "put" ) do %>
   <%= button_tag "Score your points" %>
 <% end %>
+

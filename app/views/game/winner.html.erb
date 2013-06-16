@@ -5,3 +5,8 @@
 <% end %>
 
 <%= link_to "Play again?", :controller => "game", :action => "home" %>
+<p><%= @game.players.first.name %>'s score: 
+<%= @game.players.first.score %></p>
+
+<p><%= @game.players.second.name %>'s score: 
+<%= @game.players.second.score %></p>
