@@ -18,11 +18,6 @@ class GameController < ApplicationController
       @game.preferences[:current_player] = params[:current_player]
     end
     set_game_dice
-    # if Array(@game.preferences[:dice]) == []
-    #   @dice = 6.times.map {rand(1..6)} #getting a new array of rand
-    # else 
-    #   @dice = @game.preferences[:dice]
-    # end
     @dice2 = @game.preferences[:scoring_dice]
     @game.preferences[:dice] = @dice 
     @game.save
