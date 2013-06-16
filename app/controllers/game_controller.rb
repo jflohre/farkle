@@ -17,12 +17,12 @@ class GameController < ApplicationController
     if params[:current_player] != nil
       @game.preferences[:current_player] = params[:current_player]
     end
-
-    if Array(@game.preferences[:dice]) == []
-      @dice = 6.times.map {rand(1..6)} #getting a new array of rand
-    else 
-      @dice = @game.preferences[:dice]
-    end
+    set_game_dice
+    # if Array(@game.preferences[:dice]) == []
+    #   @dice = 6.times.map {rand(1..6)} #getting a new array of rand
+    # else 
+    #   @dice = @game.preferences[:dice]
+    # end
     @dice2 = @game.preferences[:scoring_dice]
     @game.preferences[:dice] = @dice 
     @game.save
@@ -37,8 +37,7 @@ class GameController < ApplicationController
   
   def add_to_set
     placing_dice_in_scoring_dice
-    @game.save
-    redirect_to edit_game_path
+    final_turn_or_edit_path?
   end
 
   def roll_remaining_dice
@@ -48,8 +47,7 @@ class GameController < ApplicationController
       @dice = @game.preferences[:dice].length.times.map {rand(1..6)}
     end
     @game.preferences[:dice] = @dice 
-    @game.save
-    redirect_to edit_game_path
+    final_turn_or_edit_path?
   end
   
   def final_turn
@@ -58,15 +56,10 @@ class GameController < ApplicationController
     else 
       @game.preferences[:current_player] = @game.players.first.id
     end
-
-    if Array(@game.preferences[:dice]) == []
-      @dice = 6.times.map {rand(1..6)} #getting a new array of rand
-    else 
-      @dice = @game.preferences[:dice].length.times.map {rand(1..6)}
-    end
-    @dice2 = @game.preferences[:scoring_dice]
-    @game.preferences[:dice] = @dice 
-    @game.save
+    set_game_dice
+      @dice2 = @game.preferences[:scoring_dice]
+      @game.preferences[:dice] = @dice 
+      @game.save
   end
 
   def farkle
@@ -96,6 +89,7 @@ class GameController < ApplicationController
     current_player.save!
     if score_amount_meant?(current_player.score)
       flash[:notice] = 'Last chance to get ahead!'
+      @game.preferences[:final_turn] = true
       @game.save!
       redirect_to final_turn_game_path
     else

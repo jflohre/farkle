@@ -12,6 +12,24 @@ class ApplicationController < ActionController::Base
   def current_player
     @game.preferences[:current_player]
   end
+
+  def set_game_dice
+    if Array(@game.preferences[:dice]) == []
+      @dice = 6.times.map {rand(1..6)} #getting a new array of rand
+    else 
+      @dice = @game.preferences[:dice]    
+    end
+    @game.save! 
+  end
+  def final_turn_or_edit_path?
+    if @game.preferences[:final_turn] == true 
+      @game.save
+      redirect_to final_turn_game_path(@game)
+    else
+      @game.save
+      redirect_to edit_game_path
+    end
+  end
   
   def current_score
     if @game.preferences[:scoring_dice2].present?
@@ -52,6 +70,7 @@ class ApplicationController < ActionController::Base
       @game.preferences[:scoring_dice2] = @scoring_dice
     end
   end
+
   def score_amount_meant?(score)
     if score >= 10000
       true
