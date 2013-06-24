@@ -1,5 +1,10 @@
 == Welcome to jflohre's Farkle
 
+currently located at:
+http://jflohre-farkle.herokuapp.com/
+
+In Development
+
 This was built so people can play the dice game farkle
 
 To start playing please pull down the game and start a server with it.
